@@ -15,7 +15,7 @@ userCtrl.getUsers = async(req,res) =>{
 userCtrl.getRecords = async(req,res) =>{
     try{
     const token = req.header('Authorization').replace('Bearer ', '')
-    const data = jwt.verify(token, process.env.JWT_KEY)
+    const data = jwt.verify(token, 'shhhhh')
     const {_id,firstname,lastname,gender,birthday,adress,email,password,tokens} = await User.findOne({ _id: data._id, 'tokens.token': token })
     const records = await Record.find({"user_id":_id});
     res.json(records)
@@ -49,7 +49,7 @@ userCtrl.UserLogin = async(req,res) =>{
 
 userCtrl.createRecord = async(req,res) =>{
     const token = req.header('Authorization').replace('Bearer ', '')
-    const data = jwt.verify(token, process.env.JWT_KEY)
+    const data = jwt.verify(token, 'shhhhh')
     const {_id,firstname,lastname,gender,birthday,adress,email,password,tokens} = await User.findOne({ _id: data._id, 'tokens.token': token })
     const {record_id,from,to,content}= req.body;
     const newRecord = new Record({"record_id":record_id,"user_id":_id,"from":from,"to":to,"content":content});
